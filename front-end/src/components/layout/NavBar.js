@@ -1,9 +1,8 @@
 import React from "react";
 import Image from "next/image";
-import { FormButton } from "./FormButton";
-import { NavBarButton } from "./NavBarButton"
+import { NavBarButton } from "@/components/layout";
 
-function NavBar() {
+const NavBar = () => {
   return (
     <div>
       <nav>
@@ -22,16 +21,15 @@ function NavBar() {
           </div>
           <div>
             <div className="flex">
-                <NavBarButton text={'Iniciar sesión'} ></NavBarButton>
-                <NavBarButton text={'Regístrate'} ></NavBarButton>
-                {/* <FormButton text={'Iniciar sesión'} className='bg-transparent'></FormButton> */}
+              <NavBarButton text={"Iniciar sesión"} href={'/log-in'}></NavBarButton>
+              <NavBarButton text={"Regístrate"} href={'/sign-in'}></NavBarButton>
+              {/* <FormButton text={'Iniciar sesión'} className='bg-transparent'></FormButton> */}
             </div>
           </div>
-
         </div>
       </nav>
     </div>
   );
-}
+};
 
 export default NavBar;

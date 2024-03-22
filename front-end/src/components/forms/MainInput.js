@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const MainInput =  ({ placeholder, label, error, icon, ...rest}) => {
+const MainInput =  ({ placeholder, label, error, icon, ...rest}) => {
     return (
         <div className="mb-3">
           {label && <label className="block text-gray-700 text-sm font-bold mb-2">{label}</label>}
@@ -18,3 +18,5 @@ export const MainInput =  ({ placeholder, label, error, icon, ...rest}) => {
         </div>
       );
 }
+
+export default MainInput;

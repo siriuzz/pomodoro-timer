@@ -1,6 +1,5 @@
 import React from 'react'
-import { MainInput } from '@/components/MainInput'
-import { FormButton } from '@/components/FormButton'
+import { MainInput, FormButton } from '@/components/forms';
 import Link from 'next/link'
 
 
