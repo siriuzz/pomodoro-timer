@@ -1,13 +1,25 @@
+import { IconButton } from "@/components/ui";
 import Image from "next/image";
+import { MdOutlineRestartAlt } from "react-icons/md";
+import { IoIosSkipForward } from "react-icons/io";
+import { FaPlay } from "react-icons/fa";
+import { Timer } from "@/components/features"
+
+
 
 export default function Home() {
   return (
     <main>
-      <div>
-        
+      <div className="flex flex-col space-y-20">
+        <div>
+          <h3 className="text-black text-5xl text-center font-bold">
+            Pomodory
+          </h3>
+        </div>
+       <Timer></Timer>
       </div>
     </main>
-  )
+  );
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">

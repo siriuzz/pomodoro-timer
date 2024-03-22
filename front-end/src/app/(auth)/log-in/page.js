@@ -1,6 +1,6 @@
 import React from 'react'
-import { MainInput } from '@/components/MainInput'
-import { FormButton } from '@/components/FormButton'
+import { MainInput } from '@/components/forms'
+import { FormButton } from '@/components/forms'
 import Link from 'next/link'
 
 export default function LogInPage() {
