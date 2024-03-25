@@ -7,6 +7,7 @@ const authRoutes = require("./routes/authRoutes");
 const timerRoutes = require("./routes/timerRoutes");
 const cors = require('cors');
 const bodyParser = require('body-parser');
+require('dotenv').config();
 
 server.use(cors());
 // Import the functions you need from the SDKs you need
