@@ -1,6 +1,8 @@
 // firebaseSingleton.js
+const firestore = require('firebase/firestore');
 const { initializeApp } = require('firebase/app');
 const firebaseAuth = require('firebase/auth');
+
 
 
 class FirebaseSingleton {
@@ -21,11 +23,16 @@ class FirebaseSingleton {
     return FirebaseSingleton.instance;
   }
 
+  firebaseSingletonAuth;
+
   getFirebaseApp() {
     return this.firebaseApp;
   }
   getFirebaseAuth(){
-    return firebaseAuth.initializeAuth(this.getFirebaseApp());
+    return firebaseAuth.initializeAuth(this.firebaseApp);
+  };
+  getFirestore(){
+    return firestore.initializeFirestore(this.firebaseApp);
   }
 }
 
