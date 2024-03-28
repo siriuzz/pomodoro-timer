@@ -8,9 +8,11 @@ import { Timer } from "@/components/features";
 import { useEffect, useState } from "react";
 import { auth, firestore } from "@/firebase";
 import { collection, doc, getDoc } from "firebase/firestore";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
   const [data, setData] = useState({});
+  const router = useRouter();
   useEffect(() => {
     const fetchUserData = () => {
       auth.onAuthStateChanged(async (user) => {
@@ -23,7 +25,7 @@ export default function Home() {
           setData(docSnapshot.data());
         } else {
           // No user is signed in
-          console.log("not logged in");
+          router.push('/log-in');
         }
       });
     };
