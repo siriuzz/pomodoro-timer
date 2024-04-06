@@ -11,7 +11,10 @@ import { collection, doc, getDoc } from "firebase/firestore";
 import { useRouter } from "next/navigation";
 
 export default function Home() {
-  const [data, setData] = useState({});
+  const [data, setData] = useState({
+    email:"",
+    name:"Loading"
+  });
   const router = useRouter();
   useEffect(() => {
     const fetchUserData = () => {
@@ -40,7 +43,7 @@ export default function Home() {
           </h3>
           <h4>{data.name}</h4>
         </div>
-        <Timer></Timer>
+        <Timer/>
       </div>
     </main>
   );
