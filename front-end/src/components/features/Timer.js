@@ -7,8 +7,8 @@ import { FaPlay, FaPause } from "react-icons/fa";
 
 const Timer = () => {
   const modes = {
-    work: 5,
-    break: 5 * 60,
+    work: 1500,
+    break: 300,
   };
   const [totalSeconds, setTotalSeconds] = useState(modes["work"]);
   const [isActive, setIsActive] = useState(false);
