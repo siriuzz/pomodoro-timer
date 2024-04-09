@@ -10,6 +10,7 @@ const createJestConfig = nextJest({
   dir: "./",
 });
 const config = {
+  setupFilesAfterEnv: ['<rootDir>/src/setupTests.js'],
   // All imported modules in your tests should be mocked automatically
   // automock: false,
 
