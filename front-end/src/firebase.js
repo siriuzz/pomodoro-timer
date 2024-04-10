@@ -15,7 +15,4 @@ const firebaseConfig = {
 const app = firebase.initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const firestore = getFirestore(app);
-console.log("app in init "+ app.options.apiKey);
-
-
 export { app, auth, firestore };
