@@ -11,9 +11,11 @@ const firebaseConfig = {
   messagingSenderId: process.env.NEXT_PUBLIC_MESSAGING_SENDER_ID,
   appId: process.env.NEXT_PUBLIC_APP_ID,
 };
-console.log(firebaseConfig);
 
-export const app = firebase.initializeApp(firebaseConfig);
+const app = firebase.initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const firestore = getFirestore(app);
+console.log("app in init "+ app.options.apiKey);
 
-export const auth = getAuth(app);
-export const firestore = getFirestore(app);
+
+export { app, auth, firestore };
