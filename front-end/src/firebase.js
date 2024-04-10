@@ -1,9 +1,7 @@
 import * as firebase from "firebase/app"
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
-require('dotenv').config({
-    path:"../../.env.local"
-})
+require('dotenv').config()
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_API_KEY,
@@ -14,8 +12,7 @@ const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_APP_ID,
 };
 
-
-export const app = firebase.initializeApp(firebaseConfig);
-
-export const auth = getAuth(app);
-export const firestore = getFirestore(app);
+const app = firebase.initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const firestore = getFirestore(app);
+export { app, auth, firestore };
