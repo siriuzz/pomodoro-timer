@@ -17,3 +17,4 @@ jobs:
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_POMODORY_FEBF2 }}'
           channelId: live
           projectId: pomodory-febf2
+          entryPoint: ./front-end
