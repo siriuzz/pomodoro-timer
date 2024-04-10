@@ -28,3 +28,5 @@ jobs:
           channelId: live
           projectId: pomodory-febf2
           entryPoint: './front-end'
+        env:
+          FIREBASE_CLI_EXPERIMENTS: webframeworks\n\u001b[23m,webframeworks
