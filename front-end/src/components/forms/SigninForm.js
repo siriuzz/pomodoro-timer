@@ -51,7 +51,7 @@ export default function SigninForm() {
     <div className="grid place-items-center h-screen ">
       <div className="border-blue-400 text-blue-600 border-2 rounded-lg p-4 h-auto w-1/4">
         <p className="text-center text-xl font-bold my-5 text-blu">Sign In</p>
-        <form onSubmit={handleSubmit(signin)}>
+        <form onSubmit={handleSubmit(signin)} role="form">
           <MainInput
             placeholder={"Nombre"}
             {...register("name", { required: "Este campo es requerido" })}
