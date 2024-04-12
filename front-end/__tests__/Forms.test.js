@@ -1,11 +1,14 @@
 import "@testing-library/jest-dom";
 import {
+  act,
   fireEvent,
   getAllByDisplayValue,
   render,
   screen,
   waitFor,
+  queryByText,
 } from "@testing-library/react";
+import { MemoryRouter } from "react-router-dom";
 import {
   LoginForm,
   FormButton,
@@ -16,15 +19,30 @@ import {
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { getFirestore, setDoc } from "firebase/firestore";
 import { Ico1nButton } from "@/components/ui";
-jest.mock("next/navigation");
+import { useRouter } from "next/navigation";
+
+//mocks
+jest.mock("next/navigation", () => ({
+  useRouter: jest.fn(),
+}));
+jest.mock("next/link", () => {
+  return ({ children, href }) => {
+    return (
+      <a href={href} onClick={(e) => e.preventDefault()}>
+        {children}
+      </a>
+    );
+  };
+});
+
 jest.mock("firebase/auth", () => ({
   createUserWithEmailAndPassword: jest.fn(() => Promise.resolve("success")),
   getAuth: jest.fn(),
 }));
 
 jest.mock("firebase/firestore", () => ({
-  getFirestore: jest.fn(),
   setDoc: jest.fn(),
+  getFirestore: jest.fn(),
 }));
 describe("Form Unit Tests", () => {
   it("renders a FormButton component", () => {
@@ -56,6 +74,26 @@ describe("Form Integration Tests", () => {
     password: "password1234",
   };
 
+  it("navigates to LoginForm", async () => {
+    const router = useRouter();
+    const pushMock = jest.fn();
+    useRouter.mockImplementation(() => ({
+      push: pushMock,
+    }));
+
+    const { getByText } = render(<SigninForm />); 
+    const link = getByText("Ingresa aquí");
+    const spy = jest.spyOn(link, 'href','get')
+
+    fireEvent.click(link);
+
+    await waitFor(()=>{
+      expect(link).toBeInTheDocument();
+      expect(link).toHaveProperty("href"); 
+      expect(spy).toHaveBeenCalled(); 
+    })
+    // Adjust the expected path as needed
+  });
   it("renders and populates form", async () => {
     const {
       getByPlaceholderText,

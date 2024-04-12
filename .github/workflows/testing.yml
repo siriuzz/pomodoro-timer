@@ -3,10 +3,11 @@ name: Testing
 on:
   push:
     branches:
-      - "**"
+      - "master"
+      - "preview"
 
 jobs:
-  Run-tests:
+  unit-tests:
     environment: testing
     runs-on: ubuntu-latest
     steps:
