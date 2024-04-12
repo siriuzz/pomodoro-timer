@@ -1,0 +1,21 @@
+name: Testing
+
+on:
+  push:
+    branches:
+      - "master"
+      - "preview"
+
+jobs:
+  run-tests:
+    environment: testing
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: cd front-end/ && npm install
+
+      - name: Run tests
+        run: cd front-end/ && npm run test
