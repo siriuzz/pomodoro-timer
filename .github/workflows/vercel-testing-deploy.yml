@@ -5,9 +5,7 @@ env:
 on:
   push:
     branches:
-      - master
-    branches-ignore:
-      - dev/tests
+      - '/tests/'
 jobs:
   Deploy-Preview:
     runs-on: ubuntu-latest
@@ -16,7 +14,7 @@ jobs:
       - name: Install Vercel CLI
         run: npm install --global vercel@latest
       - name: Pull Vercel Environment Information
-        run: vercel pull --yes --environment=testing --token=${{ secrets.VERCEL_ID }}
+        run: vercel pull --yes --environment=development --token=${{ secrets.VERCEL_ID }}
       - name: Install dependencies
         run: cd front-end && npm i
       - name: Build app
