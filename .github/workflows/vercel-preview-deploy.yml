@@ -15,8 +15,7 @@ on:
   push:  
     branches:
       - preview
-    branches-ignore: 
-      - dev/tests
+
 
 jobs:
   Deploy-Preview:
