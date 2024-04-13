@@ -3,19 +3,28 @@ name: Testing
 on:
   push:
     branches:
-      - "master"
-      - "preview"
+      - preview
 
 jobs:
   run-tests:
     environment: testing
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0  # fetch the entire repository history
 
-      - name: Install dependencies
-        run: cd front-end/ && npm install
+    - name: Cache node modules
+      uses: actions/cache@v3
+      with:
+        path: ~/.npm
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-
 
-      - name: Run tests
-        run: cd front-end/ && npm run test
+    - name: Install dependencies
+      run: cd front-end/ && npm install
+
+    - name: Run tests
+      run: cd front-end/ && npm run test

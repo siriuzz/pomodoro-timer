@@ -3,16 +3,21 @@ name: CI
 on:
   push:
     branches:
-      - "**"  
+      - '**'
 
 jobs:
   build:
     runs-on: ubuntu-latest
     environment: development
-    
+
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
 
-    - name: Install dependencies
-      run:  cd front-end/ && npm install
+    - name: Use Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: 18
+
+    - name: Install front-end dependencies
+      run: cd front-end && npm install
