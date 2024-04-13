@@ -7,6 +7,7 @@ import { auth, firestore } from "@/firebase";
 import { addDoc, collection, doc, setDoc } from "firebase/firestore";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
 
 export default function SigninForm() {
   const {
@@ -20,6 +21,7 @@ export default function SigninForm() {
   const [repeatPassword, setRepeatPassword] = useState("");
   const [isVisiblePassword, setIsVisiblePassword] = useState(false);
   const [isVisibleRepeatPassword, setIsVisibleRepeatPassword] = useState(false);
+  const router = useRouter();
 
   const checkRepeatPassword = () => {
     if (password !== repeatPassword) return "Las contraseñas no coinciden";
@@ -28,10 +30,8 @@ export default function SigninForm() {
 
   const signin = async () => {
     try {
-      // console.log(email);
       const res = await createUserWithEmailAndPassword(auth, email, password);
-      const docRef = doc(firestore, "/users",res.user.uid);
-    //   const docRef = collection(firestore, "/users");
+      const docRef = doc(firestore, "/users", res.user.uid);
 
       setDoc(docRef, {
         uid: res.user.uid,
@@ -40,6 +40,8 @@ export default function SigninForm() {
       });
 
       console.log("success");
+      router.push("/log-in");
+
       return "success";
     } catch (error) {
       console.log("ERROR: " + error);
@@ -62,7 +64,10 @@ export default function SigninForm() {
             placeholder={"Correo electrónico"}
             {...register("email", {
               required: "Este campo es requerido",
-              pattern: {value:/^\S+@\S+$/i,message:"Ingrese un correo valido"},
+              pattern: {
+                value: /^\S+@\S+$/i,
+                message: "Ingrese un correo valido",
+              },
               onChange: (e) => {
                 setEmail(e.target.value);
               },
@@ -80,9 +85,10 @@ export default function SigninForm() {
                   onChange: (e) => {
                     setPassword(e.target.value);
                   },
-                  minLength:{
-                    value:6,
-                    message:"La contraseña debe tener un mínimo de 6 caracteres"
+                  minLength: {
+                    value: 6,
+                    message:
+                      "La contraseña debe tener un mínimo de 6 caracteres",
                   },
                 })}
               ></MainInput>
@@ -108,7 +114,7 @@ export default function SigninForm() {
                   onChange: (e) => {
                     setRepeatPassword(e.target.value);
                   },
-                  
+
                   validate: checkRepeatPassword,
                 })}
               ></MainInput>
