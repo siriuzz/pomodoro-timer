@@ -12,9 +12,11 @@ env:
   NEXT_PUBLIC_STORAGE_BUCKET: ${{ secrets.NEXT_PUBLIC_STORAGE_BUCKET }}
   
 on:
-  pull_request: 
+  push:  
     branches:
       - preview
+    branches-ignore: 
+      - dev/tests
 
 jobs:
   Deploy-Preview:
