@@ -7,7 +7,7 @@ on:
 
 jobs:
   run-tests:
-    environment: preview
+    environment: testing
     runs-on: ubuntu-latest
     steps:
     - name: Checkout code
