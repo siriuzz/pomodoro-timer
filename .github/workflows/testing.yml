@@ -1,13 +1,13 @@
 name: Testing
 
 on:
-  push:
+  pull_request:
     branches:
       - preview
 
 jobs:
   run-tests:
-    environment: testing
+    environment: preview
     runs-on: ubuntu-latest
     steps:
     - name: Checkout code
