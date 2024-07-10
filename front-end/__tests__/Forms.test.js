@@ -1,24 +1,18 @@
 import "@testing-library/jest-dom";
 import {
-  act,
   fireEvent,
-  getAllByDisplayValue,
   render,
   screen,
   waitFor,
-  queryByText,
 } from "@testing-library/react";
-import { MemoryRouter } from "react-router-dom";
 import {
   LoginForm,
   FormButton,
   SigninForm,
-  MainInput,
 } from "@/components/forms";
 
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { getFirestore, setDoc } from "firebase/firestore";
-import { Ico1nButton } from "@/components/ui";
+import { setDoc } from "firebase/firestore";
 import { useRouter } from "next/navigation";
 
 //mocks
@@ -44,63 +38,19 @@ jest.mock("firebase/firestore", () => ({
   setDoc: jest.fn(),
   getFirestore: jest.fn(),
 }));
-describe("Form Unit Tests", () => {
-  it("renders a FormButton component", () => {
-    render(<FormButton text={"test"} />);
 
-    const button = screen.getByText("test");
+const userData = {
+  nombre: "elian3",
+  email: "correo@ejemplo.com",
+  password: "password1234",
+};
 
-    expect(button).toBeInTheDocument();
-  });
-
-  it("renders the LoginForm component", () => {
-    render(<LoginForm />);
-    const text = screen.getByText("Iniciar sesión");
-    expect(text).toBeInTheDocument();
-  });
-
-  it("renders the SigninForm component", () => {
-    render(<SigninForm />);
-    const text = screen.getByText("Sign In");
-    expect(text).toBeInTheDocument();
-  });
-});
-
-describe("Form Integration Tests", () => {
-  // Before each test, initialize Firebase
-  const userData = {
-    nombre: "elian3",
-    email: "correo@ejemplo.com",
-    password: "password1234",
-  };
-
-  it("navigates to LoginForm", async () => {
-    const router = useRouter();
-    const pushMock = jest.fn();
-    useRouter.mockImplementation(() => ({
-      push: pushMock,
-    }));
-
-    const { getByText } = render(<SigninForm />); 
-    const link = getByText("Ingresa aquí");
-    const spy = jest.spyOn(link, 'href','get')
-
-    fireEvent.click(link);
-
-    await waitFor(()=>{
-      expect(link).toBeInTheDocument();
-      expect(link).toHaveProperty("href"); 
-      expect(spy).toHaveBeenCalled(); 
-    })
-    // Adjust the expected path as needed
-  });
+describe("Experience-Based Tests", () => {
   it("renders and populates form", async () => {
     const {
       getByPlaceholderText,
-      getByText,
       getByDisplayValue,
-      getAllByDisplayValue,
-      baseElement,
+      getAllByDisplayValue
     } = render(<SigninForm />);
     fireEvent.change(getByPlaceholderText("Nombre"), {
       target: { value: userData.nombre },
@@ -122,7 +72,47 @@ describe("Form Integration Tests", () => {
       expect(getAllByDisplayValue("password1234")[1]).toBeInTheDocument();
     });
   });
+  it("renders a FormButton component", () => {
+    render(<FormButton text={"test"} />);
+    const button = screen.getByText("test");
+    expect(button).toBeInTheDocument();
+  });
 
+  it("renders the LoginForm component", () => {
+    render(<LoginForm />);
+    const text = screen.getByText("Iniciar sesión");
+    expect(text).toBeInTheDocument();
+  });
+
+  it("renders the SigninForm component", () => {
+    render(<SigninForm />);
+    const text = screen.getByText("Sign In");
+    expect(text).toBeInTheDocument();
+  });
+});
+
+describe("Use-Based Tests", () => {
+  it("navigates to LoginForm", async () => {
+    const pushMock = jest.fn();
+    useRouter.mockImplementation(() => ({
+      push: pushMock,
+    }));
+
+    const { getByText } = render(<SigninForm />);
+    const link = getByText("Ingresa aquí");
+    const spy = jest.spyOn(link, 'href', 'get')
+
+    fireEvent.click(link);
+
+    await waitFor(() => {
+      expect(link).toBeInTheDocument();
+      expect(link).toHaveProperty("href");
+      expect(spy).toHaveBeenCalled();
+    })
+  });
+});
+
+describe("Model-Based Tests", () => {
   it("submits register form", async () => {
     const signin = async () => {
       createUserWithEmailAndPassword();
@@ -142,4 +132,4 @@ describe("Form Integration Tests", () => {
       expect(createUserWithEmailAndPassword()).resolves.toBe("success");
     });
   });
-});
+})
