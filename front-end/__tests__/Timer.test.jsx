@@ -1,22 +1,19 @@
 import { Timer } from "@/components/features";
-import { IconButton } from "@/components/ui";
 import "@testing-library/jest-dom";
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render } from "@testing-library/react";
 
 
 const toggleTimer = jest.fn();
-describe("Timer Unit Tests",()=>{
+describe("Experience-Based Tests",()=>{
     it("renders the timer",()=>{
-        const {container, getByText} = render(<Timer/>);
+        const {getByText} = render(<Timer/>);
         expect(getByText("Restart")).toBeInTheDocument();
         expect(getByText("Start")).toBeInTheDocument();
         expect(getByText("Skip")).toBeInTheDocument();
     })
-
-
 })
 
-describe("Timer Integration Tests",()=>{
+describe("Use-Based Tests",()=>{
     it("starts the timer",()=>{
         const {getByText} = render(<Timer/>);
         const button = getByText("Start");
@@ -26,4 +23,3 @@ describe("Timer Integration Tests",()=>{
         expect(toggleTimer).toHaveBeenCalledTimes(1);
     })
 })
-
